@@ -1,0 +1,71 @@
+cd "C:\Users\HP\OneDrive\Desktop\kidney-ckd-model"
+python app.py
+
+Age: 30
+
+Blood Pressure (BP): 80
+
+Specific Gravity (SG): 1.020
+
+Albumin (AL): 0
+
+Sugar (SU): 0
+
+Hypertension (htn): No
+
+Diabetes (dm): No
+
+
+
+Example 2 – model should predict ckd
+Use these values:
+
+Age: 65
+
+Blood Pressure (BP): 100
+
+Specific Gravity (SG): 1.010
+
+Albumin (AL): 3
+
+Sugar (SU): 2
+
+Hypertension (htn): Yes
+
+Diabetes (dm): Yes
+
+
+Age = 65
+Older age is a strong risk factor for chronic kidney disease because kidney function naturally declines with age and chronic conditions (hypertension, diabetes) are more common.​
+
+Many CKD datasets (including yours) have a higher proportion of CKD cases in patients above 60.
+
+Blood Pressure (BP) = 100 (high)
+Here BP is 100 mmHg diastolic or high overall, indicating hypertension.
+
+Long‑term high blood pressure damages the small blood vessels in the kidneys, reducing filtration and leading to CKD.​
+
+Specific Gravity (SG) = 1.010 (low/iso‑sthenuric)
+Normal urine specific gravity is roughly 1.015–1.025; 1.010 is low and close to plasma (“isosthenuric”).
+
+Low SG means kidneys cannot concentrate urine properly, which is typical in CKD where nephron function is reduced.​
+
+Albumin (AL) = 3 (protein in urine)
+Albumin describes protein (albumin) found in urine; value 3 corresponds to significant proteinuria in this dataset.
+
+Protein leakage into urine is a hallmark of kidney damage and is used clinically to diagnose and stage CKD.​
+
+Sugar (SU) = 2 (glucose in urine)
+Presence of sugar in urine suggests poor blood sugar control.
+
+Persistent hyperglycemia (as in diabetes) damages kidney blood vessels over time, leading to diabetic nephropathy, a very common cause of CKD.​
+
+Hypertension (htn) = Yes
+Indicates the patient has diagnosed high blood pressure.
+
+Hypertension is both a cause and a consequence of CKD; models treat “htn = yes” as a strong indicator of kidney disease risk
+
+Diabetes (dm) = Yes
+Indicates the patient has diabetes mellitus.
+
+Diabetes is the leading cause of CKD worldwide; combining “dm = yes” with albumin in urine and low SG strongly points toward CKD in clinical practice and in prediction models.​

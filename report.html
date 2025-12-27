@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Water Quality Report</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: #e6f7ff;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+    .card {
+      max-width: 1000px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 2rem 2.4rem;
+      box-shadow: 0 16px 40px rgba(15, 52, 96, 0.18);
+    }
+    h1 {
+      margin: 0 0 0.25rem;
+      color: #1273d5;
+      font-size: 1.7rem;
+    }
+    .subtitle {
+      margin-bottom: 1.3rem;
+      color: #7b8794;
+      font-size: 0.9rem;
+    }
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      color: #5a7089;
+      flex-wrap: wrap;
+    }
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 0.7rem 1.4rem;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #1f8fff, #1172d0);
+      color: #ffffff;
+      box-shadow: 0 10px 22px rgba(31, 143, 255, 0.4);
+    }
+    .btn-secondary {
+      background: #f1f7ff;
+      color: #1273d5;
+      border: 1px solid #c2daf7;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+    }
+    thead {
+      background: #f3f7ff;
+    }
+    th, td {
+      padding: 0.6rem 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #e1e8f0;
+    }
+    th {
+      font-weight: 600;
+      color: #42566a;
+    }
+    tbody tr:nth-child(even) {
+      background: #fafcff;
+    }
+    .tag-ok {
+      display: inline-block;
+      padding: 0.22rem 0.65rem;
+      font-size: 0.75rem;
+      border-radius: 999px;
+      background: #e6fffa;
+      color: #038c73;
+      font-weight: 500;
+    }
+  </style>
+
+  <!-- PDF libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+  <div class="card" id="report">
+    <div class="toolbar">
+      <button class="btn btn-secondary" onclick="window.location.href='index.html'">
+        ← Back to live view
+      </button>
+      <div>
+        Station: <strong>River Site #01</strong> • Date:
+        <span id="reportDate"></span>
+      </div>
+      <button class="btn btn-primary" onclick="downloadPDF()">
+        📄 Download report (PDF)
+      </button>
+    </div>
+
+    <h1>Water Quality Report</h1>
+    <p class="subtitle">
+      Summary of recorded sensor readings for the selected time range.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Temperature (°C)</th>
+          <th>TDS (ppm)</th>
+          <th>Conductivity (mS/cm)</th>
+          <th>Turbidity (NTU)</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>10:10</td><td>24.0</td><td>260</td><td>0.78</td><td>1.2</td>
+          <td><span class="tag-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>10:15</td><td>24.4</td><td>270</td><td>0.82</td><td>1.3</td>
+          <td><span class="tag-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>10:20</td><td>24.6</td><td>290</td><td>0.90</td><td>2.1</td>
+          <td><span class="tag-ok">Check</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // set current date-time
+    document.getElementById("reportDate").textContent =
+      new Date().toLocaleString();
+
+    async function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF("p", "pt", "a4");
+
+      const report = document.getElementById("report");
+
+      await html2canvas(report, { scale: 2 }).then((canvas) => {
+        const imgData = canvas.toDataURL("image/png");
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const imgWidth = pageWidth;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        doc.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+      });
+
+      // direct download
+      doc.save("Water_Quality_Report.pdf");
+    }
+  </script>
+</body>
+</html>

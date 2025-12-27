@@ -1,0 +1,2 @@
+# Smart-Water-Quality-Monitoring-and-Disease-Prediction-System-Using-IoT-and-Machine-Learning
+This project monitors water quality using IoT sensors by checking filter condition and pH levels, as water quality varies across locations. Real-time data is sent to the cloud with alerts for unsafe conditions. Machine learning is used to analyze water quality data and predict kidney disease risks, promoting safe drinking water.
